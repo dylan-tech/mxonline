@@ -117,7 +117,7 @@ class ActiveUserView(View):
 #     def post(self, request):
 #         return render(request, 'send_active_email.html')
 
- 
+
 class ForgetPwdView(View):
     def get(self, request):
         forget_form = ForgetForm()
