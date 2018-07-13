@@ -21,6 +21,8 @@ from django.views.generic import TemplateView
 import xadmin
 from users.views import LoginView, RegisterView, ActiveUserView, ForgetPwdView, ResetPwdView, ModiftyView
 from organization.views import OrgView
+from django.views.static import serve
+from mxonline.settings import MEDIA_ROOT
 
 
 urlpatterns = [
@@ -39,4 +41,6 @@ urlpatterns = [
 
     # 课程列表
     url(r'^org_list/$', OrgView.as_view(), name='org_list'),
+    # 机构组织列表图片
+    url(r'^media/(?P<path>.*)/$', serve, {'document_root': MEDIA_ROOT}),
 ]

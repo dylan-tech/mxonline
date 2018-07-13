@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'xadmin',
     'crispy_forms',
     'captcha',
+    'pure_pagination'
 ]
 AUTH_USER_MODEL = 'users.UserProfile'
 AUTHENTICATION_BACKENDS = (
@@ -78,6 +79,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -148,3 +150,13 @@ EMAIL_HOST_USER = 'dylan.liang@qivay.com'
 EMAIL_HOST_PASSWORD = 'ldlliang628'
 EMAIL_FROM = 'dylan.liang@qivay.com'
 EMAIL_USE_TLS = False
+
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+PAGINATION_SETTINGS = {
+    'PAGE_RANGE_DISPLAYED': 10,
+    'MARGIN_PAGES_DISPLAYED': 2,
+    'SHOW_FIRST_PAGE_WHEN_INVALID': True,
+}
