@@ -24,11 +24,9 @@
 					<div class="more">更多</div>
 					<div class="cont">
                         <a href="?ct={{ category }}"><span class="{% ifequal city_id '' %}active2{% endifequal %}">全部</span></a>
-                                {% for city in all_cities %}
-                                    <a href="?city= {{ city.id }}&ct={{ category }}">
-                                        <span class='{% if city_id == city.id %}active2{% endif %}'>
-                                            {{ city }}</span></a>
-                                {% endfor %}
+                    {% for city in all_cities %}
+                        <a href="?city={{city.id}}&ct={{ category }}"><span class='{% ifequal city.id|stringformat:"i" city_id %}active2{% endifequal %}'>{{ city }}</span></a>
+                    {% endfor %}
 					</div>
 				</li>
 			</ul>
