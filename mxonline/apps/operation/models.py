@@ -10,9 +10,9 @@ from courses.models import Course
 
 
 class UserAsk(models.Model):
-    name = models.ForeignKey(UserProfile, verbose_name=u'用户')
-    course_name = models.ForeignKey(Course, verbose_name=u'课程名')
-    phone = models.IntegerField(verbose_name=u'手机号码')
+    name = models.CharField(max_length=20, verbose_name=u'用户名')
+    course_name = models.CharField(max_length=50, verbose_name=u'课程名')
+    phone = models.CharField(max_length=11, verbose_name=u'手机号码')
     add_time = models.DateTimeField(default=datetime.now, verbose_name=u'添加时间')
 
     class Meta:

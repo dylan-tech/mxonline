@@ -39,8 +39,13 @@ urlpatterns = [
     url(r'^reset/(?P<reset_code>.*)/$', ResetPwdView.as_view(), name='reset_pwd'),
     url(r'^modify/$', ModiftyView.as_view(), name='modify_pwd'),
 
+    # 机构列表
+    # url(r'^org_list/$', OrgView.as_view(), name='org_list'),
+    url(r'^org/', include('organization.urls', namespace='org')),
+
     # 课程列表
-    url(r'^org_list/$', OrgView.as_view(), name='org_list'),
+    url(r'^courses/', include('courses.urls', namespace='courses')),
+
     # 机构组织列表图片
     url(r'^media/(?P<path>.*)/$', serve, {'document_root': MEDIA_ROOT}),
 ]
