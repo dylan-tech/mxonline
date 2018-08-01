@@ -4,6 +4,7 @@ __author__ = 'Dylan'
 
 from django import forms
 from captcha.fields import CaptchaField
+from .models import UserProfile
 
 
 class LoginForm(forms.Form):
@@ -23,5 +24,12 @@ class ForgetForm(forms.Form):
 
 
 class ModifyForm(forms.Form):
-    password1 = forms.CharField(required=True)
-    password2 = forms.CharField(required=True)
+    password1 = forms.CharField(required=True, min_length=6)
+    password2 = forms.CharField(required=True, min_length=6)
+
+
+class UpdateImageForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['image']
+

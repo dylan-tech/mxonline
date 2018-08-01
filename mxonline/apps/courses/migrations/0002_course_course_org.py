@@ -19,4 +19,25 @@ class Migration(migrations.Migration):
             name='course_org',
             field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='organization.CourseOrg', verbose_name='\u673a\u6784\u540d'),
         ),
+        migrations.AddField(
+            model_name='course',
+            name='category',
+            field=models.CharField(default='\u540e\u7aef\u5f00\u53d1', max_length=20,
+                                   verbose_name='\u8bfe\u7a0b\u7c7b\u522b'),
+        ),
+        migrations.AddField(
+            model_name='course',
+            name='tags',
+            field=models.CharField(blank=True, max_length=20, null=True, verbose_name='\u8bfe\u7a0b\u6807\u7b7e'),
+        ),
+        migrations.AddField(
+            model_name='video',
+            name='url',
+            field=models.CharField(default='', max_length=50, verbose_name='\u89c6\u9891\u94fe\u63a5'),
+        ),
+        migrations.AddField(
+            model_name='video',
+            name='study_time',
+            field=models.IntegerField(default=0, verbose_name='\u5b66\u4e60\u65f6\u957f\uff08\u5206\u949f\uff09'),
+        ),
     ]

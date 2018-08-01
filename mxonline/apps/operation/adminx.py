@@ -10,7 +10,7 @@ from models import UserAsk, CourseComments, UserFavorite, UserMessage, UserCours
 class UserAskAdmin(object):
     list_display = ['name', 'course_name', 'phone', 'add_time']
     search_fields = ['name', 'course_name', 'phone']
-    list_filter = ['name__name', 'course_name', 'phone', 'add_time']
+    list_filter = ['name', 'course_name', 'phone', 'add_time']
 
 
 class CourseCommentsAdmin(object):
@@ -28,7 +28,7 @@ class UserFavoriteAdmin(object):
 class UserMessageAdmin(object):
     list_display = ['user', 'message', 'has_read', 'add_time']
     search_fields = ['user', 'message', 'has_read']
-    list_filter = ['user__name', 'message', 'has_read', 'add_time']
+    list_filter = ['user', 'message', 'has_read', 'add_time']
 
 
 class UserCourseAdmin(object):

@@ -48,4 +48,6 @@ urlpatterns = [
 
     # 机构组织列表图片
     url(r'^media/(?P<path>.*)/$', serve, {'document_root': MEDIA_ROOT}),
+
+    url(r'^user/', include('users.urls', namespace='user')),
 ]

@@ -7,11 +7,17 @@ from django.contrib.auth.backends import ModelBackend
 from django.db.models import Q
 from django.views.generic.base import View
 from django.contrib.auth.hashers import make_password
+from django.http import HttpResponse
 
-from forms import LoginForm, RegisterForm, ForgetForm, ModifyForm
+import json
+from .forms import UpdateImageForm
+from .forms import LoginForm, RegisterForm, ForgetForm, ModifyForm
 from models import UserProfile
 from utils.send_email import send_register_email
 from users.models import EmailVerityCode
+from utils.mixin_utils import LoginRequiredMixin
+
+
 
 
 class CustomBackend(ModelBackend):
@@ -161,3 +167,42 @@ class ModiftyView(View):
         else:
             email = request.POST.get('email', '')
             return render(request, 'password_reset.html', {'email': email, 'reset_form': reset_form})
+
+
+class UserInfoView(LoginRequiredMixin, View):
+    def get(self, request):
+        return render(request, 'usercenter-info.html', {})
+
+
+class UpdateImageView(LoginRequiredMixin, View):
+    """
+    修改用户头像
+    """
+    def post(self, request):
+        image_form = UpdateImageForm(request.POST, request.FILES, instance=request.user)
+        # if image_form.is_valid():
+        #     image = image_form.cleaned_data['image']
+        #     request.user.image = image
+        #     request.user.save()
+        if image_form.is_valid():
+            image_form.save()
+            return HttpResponse('{"status":"success"}', content_type='application/json')
+
+
+class UpdatePWDView(LoginRequiredMixin, View):
+    """
+    个人中心修改密码
+    """
+    def post(self, request):
+        reset_form = ModifyForm(request.POST)
+        if reset_form.is_valid():
+            pwd1 = request.POST.get('password1', '')
+            pwd2 = request.POST.get('password2', '')
+            if pwd1 != pwd2:
+                return HttpResponse('{"status":"fail", "msg":"密码不一致"}', content_type='application/json')
+            user = request.user
+            user.password = make_password(pwd1)
+            user.save()
+            return HttpResponse('{"status":"success"}', content_type='application/json')
+        else:
+            return HttpResponse(json.dumps(reset_form.errors), content_type='application/json')
