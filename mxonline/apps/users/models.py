@@ -24,12 +24,17 @@ class UserProfile(AbstractUser):
     def __unicode__(self):
         return self.username
 
+    def get_unread_nums(self):
+        from operation.models import UserMessage
+        unread_nums = UserMessage.objects.filter(user=self.id, has_read=False)
+        return unread_nums.count()
+
 
 class EmailVerityCode(models.Model):
     code = models.CharField(max_length=20, verbose_name=u'验证码')
     email = models.EmailField(max_length=50, verbose_name=u'用户邮箱')
-    send_type = models.CharField(choices=(('register', u'注册'), ('forget', u'找回密码')), max_length=20,
-                                 verbose_name=u'类型')
+    send_type = models.CharField(choices=(('register', u'注册'), ('forget', u'找回密码'), ('update_email', u'更新邮箱')),
+                                 max_length=20, verbose_name=u'类型')
     send_time = models.DateTimeField(default=datetime.now, verbose_name=u'发送时间')
     # send_date = models.DateField(default=timezone.now, verbose_name=u'发送月份', null=True)
 
@@ -52,6 +57,7 @@ class Banner(models.Model):
         verbose_name = u'轮播图'
         verbose_name_plural = verbose_name
 
-
+    def __unicode(self):
+        return self.title
 
 

@@ -12,7 +12,7 @@
                 </a>
             </li>
             <li >
-                <a href="teachers-list.html">授课教师</a>
+                <a href="{% url 'org:teacher_list' %}">授课教师</a>
             </li>
             <li ><a href="{% url 'org:org_list' %}">授课机构</a></li>
         </ul>
@@ -91,11 +91,11 @@
 						<p>世界名校，课程权威</p>
 					</div>
 					<div class="pic">
-                        <a href="/company/14/">
+                        <a href="{% url 'org:org_home' course.course_org.id %}">
                             <img width="150" height="80" src="{{ MEDIA_URL }}{{ course.image }}"/>
                         </a>
                     </div>
-					<a href="/company/14/">
+					<a href="{% url 'org:org_home' course.course_org.id %}">
                         <h2 class="center" title="清华大学">{{ course.course_org.name }}</h2>
                     </a>
 					<div class="btn  notlogin
@@ -132,9 +132,9 @@
 					</ul>
 				</div>
 				<div class="tab_cont tab_cont1">
-
+					{% autoescape off %}
 					<p>&nbsp; &nbsp; {{ course.detail }}</p>
-
+					{% endautoescape %}
 
 				</div>
 				<div class="tab_cont tab_cont2" >

@@ -30,6 +30,7 @@ class CourseOrg(models.Model):
     image = models.ImageField(upload_to='org/%Y/%m', verbose_name=u'封面图')
     address = models.CharField(max_length=150, verbose_name=u'机构地址')
     city = models.ForeignKey(CityDict, verbose_name=u'所属城市')
+    tag = models.CharField(default=u'著名机构', max_length=10, verbose_name=u'机构标签')
     add_time = models.DateTimeField(default=datetime.now)
     student_nums = models.IntegerField(default=0, verbose_name=u'学习人数')
     course_nums = models.IntegerField(default=0, verbose_name=u'课程数')
@@ -64,4 +65,6 @@ class Teacher(models.Model):
     def __unicode__(self):
         return self.name
 
+    def get_course_nums(self):
+        return self.course_set.all().count()
 

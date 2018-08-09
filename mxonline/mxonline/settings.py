@@ -27,7 +27,7 @@ SECRET_KEY = 'gq$su(qb+(3a#%#ajg-2fc12cv(lnw@bx)j0)hi$k&!t&(i7ls'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'xadmin',
     'crispy_forms',
     'captcha',
-    'pure_pagination'
+    'pure_pagination',
+    'DjangoUeditor',
 ]
 AUTH_USER_MODEL = 'users.UserProfile'
 AUTHENTICATION_BACKENDS = (
@@ -160,3 +161,6 @@ PAGINATION_SETTINGS = {
     'MARGIN_PAGES_DISPLAYED': 2,
     'SHOW_FIRST_PAGE_WHEN_INVALID': True,
 }
+
+
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')

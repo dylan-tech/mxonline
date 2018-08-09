@@ -13,8 +13,10 @@ class CityDictAdmin(object):
 
 class CourseOrgAdmin(object):
     list_display = ['name', 'desc', 'category', 'click_nums', 'fav_nums', 'image', 'address', 'city', 'add_time']
-    search_fields = ['name', 'desc', 'category', 'click_nums', 'fav_nums', 'city']
+    search_fields = ['name', 'desc', 'category']
     list_filter = ['name', 'desc', 'category', 'click_nums', 'fav_nums', 'image', 'address', 'city__name', 'add_time']
+
+    relfield_style = 'fk-ajax'
 
 
 class TeacherAdmin(object):

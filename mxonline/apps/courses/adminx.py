@@ -2,8 +2,13 @@
 __author__ = 'Dylan'
 
 import xadmin
-from models import Course, CourseResource, Lesson, Video
+from models import Course, CourseResource, Lesson, Video, IsBannerCourse
 from xadmin import views
+
+
+class LessonInline(object):
+    model = Lesson
+    extra = 0
 
 
 class BaseSetting(object):
@@ -23,6 +28,41 @@ class CourseAdmin(object):
     search_fields = ['name', 'desc', 'detail', 'degree', 'students']
     list_filter = ['name', 'desc', 'detail', 'degree', 'learn_times', 'students', 'fav_nums', 'image',
                    'click_nums', 'add_time']
+
+    ordering = ['-click_nums']
+    # exclude = ['fav_nums']
+
+    inlines = [LessonInline]
+    style_fields = {'detail': 'ueditor'}
+    import_excel = True
+
+    def queryset(self):
+        qs = super(CourseAdmin, self).queryset()
+        qs = qs.filter(is_banner=False)
+        return qs
+
+    def post(self, request, *args, **kwargs):
+        if 'excel' in request.FILES:
+            pass
+        return super(CourseAdmin, self).post(request, *args, **kwargs)
+
+
+class IsBannerCourseAdmin(object):
+    list_display = ['name', 'desc', 'detail', 'degree', 'learn_times', 'students', 'fav_nums', 'image',
+                    'click_nums', 'add_time']
+    search_fields = ['name', 'desc', 'detail', 'degree', 'students']
+    list_filter = ['name', 'desc', 'detail', 'degree', 'learn_times', 'students', 'fav_nums', 'image',
+                   'click_nums', 'add_time']
+
+    ordering = ['-click_nums']
+    # exclude = ['fav_nums']
+
+    inlines = [LessonInline]
+
+    def queryset(self):
+        qs = super(IsBannerCourseAdmin, self).queryset()
+        qs = qs.filter(is_banner=True)
+        return qs
 
 
 class LessonAdmin(object):
@@ -44,6 +84,7 @@ class CourseResourceAdmin(object):
 
 
 xadmin.site.register(Course, CourseAdmin)
+xadmin.site.register(IsBannerCourse, IsBannerCourseAdmin)
 xadmin.site.register(Lesson, LessonAdmin)
 xadmin.site.register(Video, VideoAdmin)
 xadmin.site.register(CourseResource, CourseResourceAdmin)
